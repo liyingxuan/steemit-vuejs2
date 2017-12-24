@@ -73,13 +73,16 @@
         this.isShowPassword = !this.isShowPassword
       },
       submitLogin() {
+        this.warningDisplay = false
+        this.confirmDisplay = false
+
         if (this.username !== '' && this.password !== '' && this.errors.items.length === 0) {
           let formData = {
             username: this.username,
             password: this.password
           }
+
           this.axios.post(process.env.API_URL + 'login', formData).then(response => {
-            console.log(response.data)
             JWTToken.setToken(response.data.token)
           }).catch(error => {
             console.log(error.response.data)

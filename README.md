@@ -6,7 +6,7 @@
 
 #### 1. Language and framework  
 ES6  
-VueJS: 2.5.9  
+VueJS: 2.5.13  
 [Bootstrap: 3.3.7-litera](https://bootswatch.com/litera)  
 [vee-validate](http://vee-validate.logaretm.com)  
 

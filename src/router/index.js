@@ -67,10 +67,12 @@ router.beforeEach((to, from, next)=> {
 
   // 如果登录了，不能访问login
   if (to.meta.requiresGuest) {
-    return next({'name': 'Home'})
+    if (Store.state.AuthUser.authenticated || JwtToken.getToken()) {
+      return next({'name': 'Home'})
+    }
   }
 
-  return next()
+  next()
 })
 
 export default router

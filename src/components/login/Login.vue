@@ -25,6 +25,7 @@
         </div>
         <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
       </div>
+
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
@@ -36,6 +37,7 @@
         </div>
         <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
       </div>
+
     </fieldset>
     <button class="btn btn-outline-success btn-submit">Login</button>
   </form>

@@ -29,8 +29,29 @@
           <router-link class="btn btn-success post-btn" to="#">Post</router-link>
         </li>
 
-        <li v-if="user.authenticated">
-          <img class="navbar-avatar" :src="demoAvatar" alt="">
+        <li class="nav-item dropdown show" v-if="user.authenticated">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+            <img class="navbar-avatar" :src="demoAvatar" alt="">
+          </a>
+          <div class="dropdown-menu" x-placement="bottom-start">
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              &nbsp;&nbsp;Blog
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-comment" aria-hidden="true"></i>
+              &nbsp;&nbsp;Comments
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              &nbsp;&nbsp;Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <a @click.prevent="logout" class="dropdown-item" href="#">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+              &nbsp;&nbsp;Logout
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -60,6 +81,11 @@
     },
     methods: {
       fetchData() {
+      },
+      logout() {
+        this.$store.dispatch('logoutRequest').then(response => {
+          this.$router.push({name: 'Home'})
+        })
       }
     }
   }
@@ -81,6 +107,7 @@
   }
 
   .post-btn {
+    margin-top: 7px;
     border-radius: 0;
     border: 0;
     font-size: 1.0rem;
@@ -115,6 +142,18 @@
 
   .navbar {
     font-size: 1.1em;
+  }
+
+  .fa {
+    width: 18px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    transform: translate3d(-70px, 50px, 0px);
+    top: 0;
+    left: 0;
+    will-change: transform;
   }
 
   .nav-item > input::-webkit-input-placeholder { color:#cacaca; }

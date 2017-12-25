@@ -1,5 +1,6 @@
 import JwtToken from '../../helpers/jwt'
 import axios from 'axios'
+import * as types from "../mutation-type";
 
 export default {
   actions: {
@@ -9,6 +10,12 @@ export default {
         dispatch('setAuthUser')
       }).catch(error => {
         console.log(error)
+      })
+    },
+    logoutRequest({dispatch}) {
+      return axios.post(process.env.API_URL + 'logout').then(response => {
+        JwtToken.removeToken()
+        dispatch('unsetAuthUser')
       })
     }
   }

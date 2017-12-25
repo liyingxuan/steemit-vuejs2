@@ -7,7 +7,7 @@
 #### 1. Language and framework  
 ES6  
 VueJS: 2.5.13  
-[Bootstrap: 3.3.7-litera](https://bootswatch.com/litera)  
+[Bootstrap: 4.0.0-litera](https://bootswatch.com/litera)  
 [vee-validate](http://vee-validate.logaretm.com)  
 
 #### 2. Install and run  

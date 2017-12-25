@@ -5,8 +5,16 @@
 </template>
 
 <script>
+  import jwtToken from './helpers/jwt'
+
   export default {
-    name: 'app'
+    name: 'app',
+    created() {
+      // 登录保持
+      if(jwtToken.getToken()) {
+        this.$store.dispatch('setAuthUser')
+      }
+    }
   }
 </script>
 

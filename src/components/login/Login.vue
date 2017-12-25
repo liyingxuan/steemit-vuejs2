@@ -49,7 +49,6 @@
 
 <script>
   import TopNav from '../common/TopNav'
-  import JWTToken from './../../helpers/jwt'
 
   export default {
     name: "login",
@@ -76,19 +75,19 @@
         this.warningDisplay = false
         this.confirmDisplay = false
 
-        if (this.username !== '' && this.password !== '' && this.errors.items.length === 0) {
-          let formData = {
-            username: this.username,
-            password: this.password
+        this.$validator.validateAll().then(result => {
+          if(result) {
+            let formData = {
+              username: this.username,
+              password: this.password
+            }
+            this.$store.dispatch('loginRequest', formData).then(response => {
+              this.$router.push({name:'profile'})
+            }).catch(error => {
+              this.warningDisplay = true
+            })
           }
-
-          this.axios.post(process.env.API_URL + 'login', formData).then(response => {
-            JWTToken.setToken(response.data.token)
-          }).catch(error => {
-            console.log(error.response.data)
-            this.warningDisplay = true
-          })
-        }
+        })
       },
       fetchData() {
         this.username = this.$route.params.username

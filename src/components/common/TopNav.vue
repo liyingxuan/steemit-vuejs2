@@ -17,17 +17,19 @@
       </ul>
 
       <ul class="navbar-nav">
-        <li class="nav-item" :class="[(this.$route.name==='register') ? 'active' : '']">
+        <li class="nav-item" v-if="!user.authenticated"
+            :class="[(this.$route.name==='register') ? 'active' : '']">
           <router-link class="nav-link" :to="{name: 'register'}">Sign up</router-link>
         </li>
-        <li class="nav-item" :class="[(this.$route.name==='login') ? 'active' : '']">
+        <li class="nav-item" v-if="!user.authenticated"
+            :class="[(this.$route.name==='login') ? 'active' : '']">
           <router-link class="nav-link" :to="{name: 'login'}">Login</router-link>
         </li>
-        <li class="post-li">
+        <li class="post-li" v-if="user.authenticated">
           <router-link class="btn btn-success post-btn" to="#">Post</router-link>
         </li>
 
-        <li>
+        <li v-if="user.authenticated">
           <img class="navbar-avatar" :src="demoAvatar" alt="">
         </li>
       </ul>
@@ -36,12 +38,19 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+
   export default {
     name: 'TopNav',
     data() {
       return {
         demoAvatar: require('../../assets/img/avatar.png'),
       }
+    },
+    computed: {
+      ...mapState({
+        user: state => state.AuthUser
+      })
     },
     created() {
       this.fetchData()

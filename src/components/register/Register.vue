@@ -57,27 +57,27 @@
         isShowPassword: false
       }
     },
-    watch: {
-    },
     methods: {
       viewPassword() {
         this.isShowPassword = !this.isShowPassword
       },
       submitRegister() {
-        if (this.username !== '' && this.email !== '' && this.password !== '' && this.errors.items.length === 0) {
-          let formData = {
-            name: this.username,
-            email: this.email,
-            password: this.password
-          }
-          this.axios.post(process.env.API_URL + 'register', formData).then(response => {
-            if (response.data.code === 1000) {
-              this.$router.push({name: 'login', params: {username: this.username}})
-            } else {
-              console.log(response.data)
+        this.$validator.validateAll().then(result => {
+          if (result) {
+            let formData = {
+              name: this.username,
+              email: this.email,
+              password: this.password
             }
-          })
-        }
+            this.axios.post(process.env.API_URL + 'register', formData).then(response => {
+              if (response.data.code === 1000) {
+                this.$router.push({name: 'login', params: {username: this.username}})
+              } else {
+                console.log(response.data)
+              }
+            })
+          }
+        })
       }
     },
     components: {

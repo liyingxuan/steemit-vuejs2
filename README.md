@@ -4,6 +4,10 @@
 这是Vue2重写的前端部分。
 
 
+配套的后端代码：  
+[steemit-api-cms](https://github.com/liyingxuan/steemit-api-cms)  
+
+
 #### 1. Language and framework  
 ES6  
 VueJS: 2.5.13  

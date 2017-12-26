@@ -26,11 +26,20 @@ export default {
           type: types.SET_AUTH_USER,
           user: response.data.user
         })
+      }).catch(error => {
+        dispatch('refreshToken')
       })
     },
     unsetAuthUser({commit}) {
       commit({
         type: types.UNSET_AUTH_USER
+      })
+    },
+    refreshToken({commit, dispatch}) {
+      return axios.post(process.env.API_URL + 'token/refresh').then(response => {
+        dispatch('loginSuccess', response.data)
+      }).catch(error => {
+        dispatch('logoutRequest')
       })
     }
   }

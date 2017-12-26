@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "js-cookie": "^2.2.0",
     "vee-validate": "^2.0.0-rc.27",
     "vue": "^2.5.13",
     "vue-awesome-swiper": "^2.6.7",

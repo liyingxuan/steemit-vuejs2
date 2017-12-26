@@ -12,13 +12,16 @@
 <script>
   import TopNav from './common/TopNav'
   import jwtToken from './../helpers/jwt'
+  import Cookie from 'js-cookie'
 
   export default {
     name: 'app',
     created() {
-      // 登录保持
-      if(jwtToken.getToken()) {
+      // 登录保持；如果token没过期则直接获取用户信息，如果过期了去刷新token
+      if (jwtToken.getToken()) {
         this.$store.dispatch('setAuthUser')
+      } else if (Cookie.get('auth_id')) {
+        this.$store.dispatch('refreshToken')
       }
     },
     components: {

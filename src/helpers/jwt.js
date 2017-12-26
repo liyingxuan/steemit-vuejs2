@@ -1,6 +1,7 @@
 /**
  * 将登陆用户的token保存到本地localStorage里。
  */
+import Cookie from 'js-cookie'
 
 export default {
   setToken(token) {
@@ -11,5 +12,8 @@ export default {
   },
   removeToken() {
     window.localStorage.removeItem('jwt_token')
+  },
+  setAuthId(authId) {
+    Cookie.set('auth_id', authId)
   }
 }

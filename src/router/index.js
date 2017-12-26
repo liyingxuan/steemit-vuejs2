@@ -38,9 +38,15 @@ let routes = [
     component: Login,
     meta: {requiresGuest: true}
   },
+  // {
+  //   path: '/posts/:id',
+  //   name: 'Posts',
+  //   component: Post,
+  //   meta: {}
+  // },
   {
-    path: '/posts/:id',
-    name: 'Posts',
+    path: '/post',
+    name: 'Post',
     component: Post,
     meta: {}
   },

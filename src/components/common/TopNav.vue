@@ -26,7 +26,7 @@
           <router-link class="nav-link" :to="{name: 'Login'}">Login</router-link>
         </li>
         <li class="post-li" v-if="user.authenticated">
-          <router-link class="btn btn-success post-btn" to="#">Post</router-link>
+          <router-link class="btn btn-success post-btn" :to="{name: 'Post'}">Post</router-link>
         </li>
 
         <li class="nav-item dropdown show" v-if="user.authenticated">

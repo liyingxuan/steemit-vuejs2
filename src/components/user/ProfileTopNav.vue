@@ -1,5 +1,5 @@
 <template>
-  <div class="nav container-fluid" style="background-color: #2d3a44;">
+  <div class="nav container-fluid profile-top-nav">
     <ul class="container nav nav-tabs">
       <li class="nav-item">
         <a @click.prevent="toMyBlog"
@@ -40,6 +40,9 @@
 <style scoped>
   .container-fluid {
     padding: 0;
+  }
+  .profile-top-nav {
+    background-color: #2d3a44;
   }
 
   /* 自定义 nav table */

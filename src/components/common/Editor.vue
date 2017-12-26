@@ -1,0 +1,70 @@
+<template>
+  <div class="editor-container">
+    <div id="editor">
+      <textarea :value="input" @input="update" placeholder="Markdown Editor"></textarea>
+      <div v-html="compiledMarkdown"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+	export default {
+		name: "editor",
+    data() {
+		  return {input: '# Hello'
+      }
+    },
+    computed: {
+      compiledMarkdown: function () {
+        return marked(this.input, { sanitize: true })
+      }
+    },
+    methods: {
+      update: _.debounce(function (e) {
+        this.input = e.target.value
+      }, 300)
+    }
+	}
+</script>
+
+<style scoped>
+  .editor-container {
+    min-height: 480px;
+    border: 1px solid #cacaca;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(51, 51, 51, 0.1);
+  }
+
+  #editor {
+    margin: 0;
+    height: 100%;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+  }
+
+  #editor textarea,
+  #editor div {
+    display: inline-block;
+    width: 49%;
+    /*min-height: 480px;*/
+    /*_height: 480px;*/
+    /*height: 100%;*/
+    height: 480px;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 3px;
+  }
+
+  #editor textarea {
+    resize: none;
+    border: 0;
+    border-right: 1px solid #cacaca;
+    border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+  }
+  #editor div {
+    background-color: #fcfaf2;
+    overflow: auto;
+  }
+</style>

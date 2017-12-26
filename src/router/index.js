@@ -7,9 +7,9 @@ import Home from '@/components/home/Index'
 import Register from '@/components/register/Register'
 import Login from '@/components/login/Login'
 import Post from '@/components/posts/Post'
-import ProfileBlog from '@/components/user/ProfileBlog'
-import ProfileComments from '@/components/user/ProfileComments'
-import ProfileSettings from '@/components/user/ProfileSettings'
+import Blog from '@/components/user/Blog'
+import Comments from '@/components/user/Comments'
+import Settings from '@/components/user/Settings'
 
 Vue.use(Router)
 
@@ -47,19 +47,19 @@ let routes = [
   {
     path: '/blog',
     name: 'Blog',
-    component: ProfileBlog,
+    component: Blog,
     meta: {requiresAuth: true}
   },
   {
     path: '/comments',
     name: 'Comments',
-    component: ProfileComments,
+    component: Comments,
     meta: {requiresAuth: true}
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: ProfileSettings,
+    component: Settings,
     meta: {requiresAuth: true}
   }
 ]

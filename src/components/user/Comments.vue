@@ -1,10 +1,10 @@
 <template>
-  <div class="profile-blog">
+  <div class="comments">
     <profile></profile>
     <profile-top-nav></profile-top-nav>
 
-    <div class="container blog-body">
-      <articles></articles>
+    <div class="container">
+      profile-comments
     </div>
   </div>
 </template>
@@ -12,20 +12,16 @@
 <script>
   import Profile from './Profile'
   import ProfileTopNav from './ProfileTopNav'
-  import Articles from './../common/Articles'
 
   export default {
-		name: "profile-blog",
+		name: "comments",
     components: {
       Profile,
-      ProfileTopNav,
-      Articles
+      ProfileTopNav
     }
 	}
 </script>
 
 <style scoped>
-  .blog-body {
-    margin-top: 30px;
-  }
+
 </style>

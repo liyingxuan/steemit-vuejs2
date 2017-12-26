@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-settings">
+  <div class="settings">
     <profile></profile>
     <profile-top-nav></profile-top-nav>
 
@@ -24,7 +24,7 @@
   import {mapState} from 'vuex'
 
   export default {
-    name: "profile-settings",
+    name: "settings",
     created() {
       this.$store.dispatch('setAuthUser')
     },

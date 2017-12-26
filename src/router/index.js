@@ -7,7 +7,9 @@ import Home from '@/components/home/Index'
 import Register from '@/components/register/Register'
 import Login from '@/components/login/Login'
 import Post from '@/components/posts/Post'
-import Profile from '@/components/user/Profile'
+import ProfileBlog from '@/components/user/ProfileBlog'
+import ProfileComments from '@/components/user/ProfileComments'
+import ProfileSettings from '@/components/user/ProfileSettings'
 
 Vue.use(Router)
 
@@ -43,27 +45,21 @@ let routes = [
     meta: {}
   },
   {
-    path: 'profile',
-    name: 'Profile',
-    component: Profile,
-    meta: {requiresAuth: true}
-  },
-  {
-    path: 'blog',
+    path: '/blog',
     name: 'Blog',
-    component: Profile,
+    component: ProfileBlog,
     meta: {requiresAuth: true}
   },
   {
-    path: 'comments',
+    path: '/comments',
     name: 'Comments',
-    component: Profile,
+    component: ProfileComments,
     meta: {requiresAuth: true}
   },
   {
-    path: 'settings',
+    path: '/settings',
     name: 'Settings',
-    component: Profile,
+    component: ProfileSettings,
     meta: {requiresAuth: true}
   }
 ]

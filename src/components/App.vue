@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <top-nav></top-nav>
-
-    <div class="container container-body">
-      <router-view></router-view>
-    </div>
-
+    <router-view></router-view>
   </div>
 </template>
 
@@ -38,8 +34,12 @@
     background-color: #fcfcfc;
   }
 
+  /*提供给其他需要的组件使用*/
   .container-body {
     margin-top: 95px;
+  }
+  .container-fluid-body {
+    margin-top: 65px;
   }
 </style>
 

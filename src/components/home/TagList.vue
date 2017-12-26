@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar-module">
     <div class="sidebar-tit"><strong>Tags</strong></div>
-    <div class="sidebar-item" v-for="tagItem in tags">
-      <router-link :to="tagItem.url">{{tagItem.name}}</router-link>
+    <div class="sidebar-item" v-for="tag in tags">
+      <router-link :to="tag.url">{{tag.name}}</router-link>
     </div>
   </div>
 </template>

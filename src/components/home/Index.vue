@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div class="container container-body">
     <div class="row">
       <div class="col-lg-3">
         <tag-list></tag-list>
@@ -13,7 +13,7 @@
 
 <script>
   import TagList from '../home/TagList'
-  import Articles from '../home/Articles'
+  import Articles from './../common/Articles'
 
   export default {
     name: 'Home',

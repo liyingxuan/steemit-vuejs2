@@ -34,6 +34,8 @@
             <img class="navbar-avatar" :src="demoAvatar" alt="">
           </a>
           <div class="dropdown-menu" x-placement="bottom-start">
+            <a @click.stop.prevent="" class="dropdown-item"><strong>{{user.name}}</strong></a>
+            <div class="dropdown-divider"></div>
             <a @click.prevent="toMyBlog" class="dropdown-item" href="#">
               <i class="fa fa-home" aria-hidden="true"></i>
               &nbsp;&nbsp;Blog
@@ -73,15 +75,7 @@
         user: state => state.AuthUser
       })
     },
-    created() {
-      this.fetchData()
-    },
-    watch: {
-      '$route': 'fetchData'
-    },
     methods: {
-      fetchData() {
-      },
       toMyBlog() {
         this.$router.push({name: 'Blog'})
       },

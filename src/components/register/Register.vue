@@ -1,41 +1,43 @@
 <template>
-  <form @submit.prevent="submitRegister">
-    <fieldset>
-      <legend class="register-title">Welcome to NKN</legend>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></div>
-          <input v-model="username"
-                 v-validate data-vv-rules="required|min:4" data-vv-as="nickname"
-                 :class="{'input': true, 'is-danger': errors.has('name') }"
-                 type="text" class="form-control" name="name" placeholder="Enter nickname">
+  <div class="container container-body">
+    <form @submit.prevent="submitRegister">
+      <fieldset>
+        <legend class="register-title">Welcome to NKN</legend>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+            <input v-model="username"
+                   v-validate data-vv-rules="required|min:4" data-vv-as="nickname"
+                   :class="{'input': true, 'is-danger': errors.has('name') }"
+                   type="text" class="form-control" name="name" placeholder="Enter nickname">
+          </div>
+          <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
         </div>
-        <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
-          <input v-model="email"
-                 v-validate data-vv-rules="required|email" data-vv-as="email"
-                 :class="{'input': true, 'is-danger': errors.has('email') }"
-                 type="email" class="form-control" name="email" placeholder="Enter email">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+            <input v-model="email"
+                   v-validate data-vv-rules="required|email" data-vv-as="email"
+                   :class="{'input': true, 'is-danger': errors.has('email') }"
+                   type="email" class="form-control" name="email" placeholder="Enter email">
+          </div>
+          <small class="form-text text-muted err-message" v-show="errors.has('email')">{{ errors.first('email') }}</small>
         </div>
-        <small class="form-text text-muted err-message" v-show="errors.has('email')">{{ errors.first('email') }}</small>
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
-          <input :type="[isShowPassword ? 'text' : 'password']"
-                 v-model="password"
-                 v-validate data-vv-rules="required|min:6" data-vv-as="password"
-                 class="form-control" name="password" placeholder="Enter password">
-          <div class="input-group-addon" @click="viewPassword"><i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i></div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+            <input :type="[isShowPassword ? 'text' : 'password']"
+                   v-model="password"
+                   v-validate data-vv-rules="required|min:6" data-vv-as="password"
+                   class="form-control" name="password" placeholder="Enter password">
+            <div class="input-group-addon" @click="viewPassword"><i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i></div>
+          </div>
+          <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
         </div>
-        <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
-      </div>
-    </fieldset>
-    <button class="btn btn-outline-success btn-submit">Submit</button>
-  </form>
+      </fieldset>
+      <button class="btn btn-outline-success btn-submit">Submit</button>
+    </form>
+  </div>
 </template>
 
 <script>

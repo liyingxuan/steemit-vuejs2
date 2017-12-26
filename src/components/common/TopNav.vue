@@ -5,10 +5,10 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" :class="[(this.$route.params.name==='new') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'articles', params: {name:'new'}}">New</router-link>
+          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'new'}}">New</router-link>
         </li>
         <li class="nav-item" :class="[(this.$route.params.name==='hot') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'articles', params: {name:'hot'}}">Hot</router-link>
+          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'hot'}}">Hot</router-link>
         </li>
 
         <li class="nav-item">

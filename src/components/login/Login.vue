@@ -70,13 +70,13 @@
         this.confirmDisplay = false
 
         this.$validator.validateAll().then(result => {
-          if(result) {
+          if (result) {
             let formData = {
               username: this.username,
               password: this.password
             }
             this.$store.dispatch('loginRequest', formData).then(response => {
-              this.$router.push({name:'profile'})
+              this.$router.push({name: 'Profile'})
             }).catch(error => {
               this.warningDisplay = true
             })

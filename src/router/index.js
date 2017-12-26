@@ -20,31 +20,49 @@ let routes = [
   },
   {
     path: '/articles/:name',
-    name: 'articles',
+    name: 'Articles',
     component: Home,
     meta: {}
   },
   {
     path: '/register',
-    name: 'register',
+    name: 'Register',
     component: Register,
     meta: {requiresGuest: true}
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: Login,
     meta: {requiresGuest: true}
   },
   {
     path: '/posts/:id',
-    name: 'posts',
+    name: 'Posts',
     component: Post,
     meta: {}
   },
   {
-    path: '/profile',
-    name: 'profile',
+    path: 'profile',
+    name: 'Profile',
+    component: Profile,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: 'blog',
+    name: 'Blog',
+    component: Profile,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: 'comments',
+    name: 'Comments',
+    component: Profile,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: 'settings',
+    name: 'Settings',
     component: Profile,
     meta: {requiresAuth: true}
   }
@@ -61,7 +79,7 @@ router.beforeEach((to, from, next)=> {
   // 如果登录了，可以访问profile
   if (to.meta.requiresAuth) {
     if (!Store.state.AuthUser.authenticated && !JwtToken.getToken()) {
-      return next({'name': 'login'})
+      return next({'name': 'Login'})
     }
   }
 

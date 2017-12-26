@@ -22,11 +22,11 @@
         <div class="article-content-block">
           <div class="article-title">
             <h2>
-              <router-link :to="{name: 'posts', params: {id:article.id}}">{{article.title}}</router-link>
+              <router-link :to="{name: 'Posts', params: {id:article.id}}">{{article.title}}</router-link>
             </h2>
           </div>
           <div class="article-body">
-            <router-link :to="{name: 'posts', params: {id:article.id}}">{{article.content}}</router-link>
+            <router-link :to="{name: 'Posts', params: {id:article.id}}">{{article.content}}</router-link>
           </div>
         </div>
       </div>
@@ -146,6 +146,9 @@
   }
   .article-first-img {
     margin-bottom: 16px;
+  }
+  .article-first-img > img {
+    max-width: 100%;
   }
 
   .article-content-block {

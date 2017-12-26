@@ -63,7 +63,7 @@
             }
             this.axios.post(process.env.API_URL + 'register', formData).then(response => {
               if (response.data.code === 1000) {
-                this.$router.push({name: 'login', params: {username: this.username}})
+                this.$router.push({name: 'Login', params: {username: this.username}})
               } else {
                 console.log(response.data)
               }

@@ -8,8 +8,6 @@ export default {
       return axios.post(process.env.API_URL + 'login', formData).then(response => {
         JwtToken.setToken(response.data.token)
         dispatch('setAuthUser')
-      }).catch(error => {
-        console.log(error)
       })
     },
     logoutRequest({dispatch}) {

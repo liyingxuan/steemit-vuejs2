@@ -18,31 +18,31 @@
 
       <ul class="navbar-nav">
         <li class="nav-item" v-if="!user.authenticated"
-            :class="[(this.$route.name==='register') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'register'}">Sign up</router-link>
+            :class="[(this.$route.name==='Register') ? 'active' : '']">
+          <router-link class="nav-link" :to="{name: 'Register'}">Sign up</router-link>
         </li>
         <li class="nav-item" v-if="!user.authenticated"
-            :class="[(this.$route.name==='login') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'login'}">Login</router-link>
+            :class="[(this.$route.name==='Login') ? 'active' : '']">
+          <router-link class="nav-link" :to="{name: 'Login'}">Login</router-link>
         </li>
         <li class="post-li" v-if="user.authenticated">
           <router-link class="btn btn-success post-btn" to="#">Post</router-link>
         </li>
 
         <li class="nav-item dropdown show" v-if="user.authenticated">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
             <img class="navbar-avatar" :src="demoAvatar" alt="">
           </a>
           <div class="dropdown-menu" x-placement="bottom-start">
-            <a class="dropdown-item" href="#">
+            <a @click.prevent="toMyBlog" class="dropdown-item" href="#">
               <i class="fa fa-home" aria-hidden="true"></i>
               &nbsp;&nbsp;Blog
             </a>
-            <a class="dropdown-item" href="#">
+            <a @click.prevent="toMyComments" class="dropdown-item" href="#">
               <i class="fa fa-comment" aria-hidden="true"></i>
               &nbsp;&nbsp;Comments
             </a>
-            <a class="dropdown-item" href="#">
+            <a @click.prevent="toMySettings" class="dropdown-item" href="#">
               <i class="fa fa-cog" aria-hidden="true"></i>
               &nbsp;&nbsp;Settings
             </a>
@@ -81,6 +81,15 @@
     },
     methods: {
       fetchData() {
+      },
+      toMyBlog() {
+        this.$router.push({name: 'Blog'})
+      },
+      toMyComments() {
+        this.$router.push({name: 'Comments'})
+      },
+      toMySettings() {
+        this.$router.push({name: 'Settings'})
       },
       logout() {
         this.$store.dispatch('logoutRequest').then(response => {
@@ -150,7 +159,7 @@
 
   .dropdown-menu {
     position: absolute;
-    transform: translate3d(-70px, 50px, 0px);
+    transform: translate3d(-85px, 55px, 0px);
     top: 0;
     left: 0;
     will-change: transform;

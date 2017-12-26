@@ -5,18 +5,21 @@ export default {
   state: {
     authenticated: false,
     name: null,
-    email: null
+    email: null,
+    joinDate: null
   },
   mutations: {
     [types.SET_AUTH_USER](state, payload) {
       state.authenticated = true
       state.name = payload.user.name
       state.email = payload.user.email
+      state.joinDate = payload.user.created_at
     },
     [types.UNSET_AUTH_USER](state) {
       state.authenticated = false
       state.name = null
       state.email = null
+      state.joinDate = null
     }
   },
   actions: {

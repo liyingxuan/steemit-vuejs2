@@ -1,20 +1,29 @@
 <template>
   <div class="container-fluid container-fluid-body">
     <div class="user-profile-banner">
-        {{this.username}}
+      <div style="font-size: 1.5em;">{{user.name}}</div>
+      <div style="margin-top: 15px; font-size: 0.8em; font-weight: lighter;">
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Joined&nbsp;&nbsp;
+        {{user.joinDate}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+
 	export default {
-		name: "profile",
-    data() {
-		  return {
-		    username: 'Tmp test data'
-      }
-    }
-	}
+    name: "profile",
+    created() {
+      this.$store.dispatch('setAuthUser')
+    },
+    computed: {
+      ...mapState({
+        user: state => state.AuthUser
+      })
+    },
+  }
 </script>
 
 <style scoped>

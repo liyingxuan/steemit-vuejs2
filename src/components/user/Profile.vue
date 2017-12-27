@@ -22,7 +22,7 @@
       ...mapState({
         user: state => state.AuthUser
       })
-    },
+    }
   }
 </script>
 

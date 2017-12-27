@@ -2,7 +2,7 @@
   <article id="articles">
     <div class="articles-header"><strong>Articles</strong></div>
 
-    <div class="article-container" v-for="article in articles">
+    <div class="article-container" v-for="article in articleList">
       <div class="article-header">
         <span>
           <img class="article-avatar" :src="demoAvatar">
@@ -17,7 +17,7 @@
 
       <div class="article-content">
         <div class="article-first-img">
-          <img src="../../assets/img/demo.jpeg">
+          <img :src="article.first_img_url">
         </div>
         <div class="article-content-block">
           <div class="article-title">
@@ -26,7 +26,7 @@
             </h2>
           </div>
           <div class="article-body">
-            <router-link :to="{name: 'Posts', params: {id:article.id}}">{{article.content}}</router-link>
+            <router-link :to="{name: 'Posts', params: {id:article.id}}">{{article.content.substr(0, 200) + ' ...'}}</router-link>
           </div>
         </div>
       </div>
@@ -52,37 +52,10 @@
 <script>
 	export default {
     name: "articles",
+    props: ['articleList'],
     data() {
       return {
-        demoAvatar: require('../../assets/img/avatar.png'),
-        articles: [
-          {
-            id: '1',
-            avatar: '', title: 'test title ',
-            content: 'test conttennttest contenttest contenttest contenttest contenttest contenttest contenttest contenttest content',
-            imgUrl: '',
-            author: 'Author作者',
-            honorVal: '1203',
-            starCount: 123,
-            commentCount: 234,
-            time: '2017.12.21 10:50',
-            myStar: true,
-            myComment: false
-          },
-          {
-            id: '2',
-            avatar: '', title: 'test title ',
-            content: 'test conttennttest contenttest contenttest contenttest contenttest contenttest contenttest contenttest content',
-            imgUrl: '',
-            author: '作者Author',
-            honorVal: '2345',
-            starCount: 345,
-            commentCount: 456,
-            time: '2017.12.21 10:50',
-            myStar: false,
-            myComment: true
-          }
-        ]
+        demoAvatar: require('../../assets/img/avatar.png')
       }
     }
   }

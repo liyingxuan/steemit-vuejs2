@@ -4,7 +4,7 @@
     <profile-top-nav></profile-top-nav>
 
     <div class="container blog-body">
-      <articles></articles>
+      <articles :articleList="blogList['data']"></articles>
     </div>
   </div>
 </template>
@@ -13,15 +13,24 @@
   import Profile from './Profile'
   import ProfileTopNav from './ProfileTopNav'
   import Articles from './../common/Articles'
+  import {mapState} from 'vuex'
 
   export default {
-		name: "blog",
+    name: "blog",
+    created() {
+      this.$store.dispatch('postList')
+    },
+    computed: {
+      ...mapState({
+        blogList: state => state.Post.myBlogList
+      })
+    },
     components: {
       Profile,
       ProfileTopNav,
       Articles
     }
-	}
+  }
 </script>
 
 <style scoped>

@@ -13,7 +13,9 @@
 
     <input v-model="tags" type="text" class="form-control post-tags" name="tags" placeholder="Tag (up to 5 tags), the first tag is your main category.">
 
-    <button class="btn btn-outline-success btn-submit-post">Submit</button>
+    <button v-bind:disabled="disabledVal"
+            :class="[disabledVal ? 'btn-secondary' : 'btn-outline-success']"
+            class="btn btn-submit-post">Submit</button>
   </form>
 </template>
 
@@ -22,11 +24,17 @@
     name: "editor",
     data() {
       return {
+        disabledVal: true,
         input: '# Hello',
         title: '',
         tags: '',
         content: ''
       }
+    },
+    watch: {
+      title: 'disabledBtn',
+      input: 'disabledBtn',
+      tags: 'disabledBtn'
     },
     computed: {
       compiledMarkdown: function () {
@@ -49,6 +57,9 @@
         }).catch(error => {
 
         })
+      },
+      disabledBtn() {
+        this.disabledVal = !(this.title !== '' && this.input !== '' && this.tags !== '');
       }
     }
   }

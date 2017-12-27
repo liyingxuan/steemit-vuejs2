@@ -1,30 +1,57 @@
 <template>
-  <div class="editor-container">
-    <div id="editor">
-      <textarea :value="input" @input="update" placeholder="Markdown Editor"></textarea>
-      <div v-html="compiledMarkdown"></div>
+  <form @submit.prevent="submitPost">
+    <input v-model="title" type="text" class="form-control post-title" name="title" placeholder="Title">
+
+    <div class="editor-name">Markdown Editor</div>
+
+    <div class="editor-container">
+      <div id="editor">
+        <textarea :value="input" @input="update" placeholder="Markdown Editor"></textarea>
+        <div v-html="compiledMarkdown"></div>
+      </div>
     </div>
-  </div>
+
+    <input v-model="tags" type="text" class="form-control post-tags" name="tags" placeholder="Tag (up to 5 tags), the first tag is your main category.">
+
+    <button class="btn btn-outline-success btn-submit-post">Submit</button>
+  </form>
 </template>
 
 <script>
 	export default {
-		name: "editor",
+    name: "editor",
     data() {
-		  return {input: '# Hello'
+      return {
+        input: '# Hello',
+        title: '',
+        tags: '',
+        content: ''
       }
     },
     computed: {
       compiledMarkdown: function () {
-        return marked(this.input, { sanitize: true })
+        return marked(this.input, {sanitize: true})
       }
     },
     methods: {
       update: _.debounce(function (e) {
         this.input = e.target.value
-      }, 300)
+      }, 300),
+      submitPost() {
+        const formData = {
+          title: this.title,
+          content: this.input,
+          contentHtml: marked(this.input, {sanitize: true}),
+          tags: this.tags
+        }
+        this.$store.dispatch('postRequest', formData).then(response => {
+          this.$router.push({name: 'Blog'})
+        }).catch(error => {
+
+        })
+      }
     }
-	}
+  }
 </script>
 
 <style scoped>
@@ -33,6 +60,26 @@
     border: 1px solid #cacaca;
     border-radius: 3px;
     box-shadow: inset 0 1px 2px rgba(51, 51, 51, 0.1);
+    padding: 0;
+  }
+
+  .post-title {
+    margin-bottom: 10px;
+  }
+  .post-tags {
+    margin: 10px 0;
+  }
+
+  .editor-name {
+    text-align: right;
+    font-size: 0.8em;
+    color: #cacaca;
+  }
+
+  .btn-submit-post {
+    border-radius: 0;
+    width: 120px;
+    margin-bottom: 1em;
   }
 
   #editor {
@@ -41,27 +88,24 @@
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #333;
   }
-
   #editor textarea,
   #editor div {
     display: inline-block;
     width: 49%;
-    /*min-height: 480px;*/
-    /*_height: 480px;*/
-    /*height: 100%;*/
     height: 480px;
     vertical-align: top;
     box-sizing: border-box;
     padding: 0.5rem;
     border-radius: 3px;
   }
-
   #editor textarea {
     resize: none;
     border: 0;
     border-right: 1px solid #cacaca;
     border-top-right-radius: 0;
     -moz-border-radius-topright: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
   }
   #editor div {
     background-color: #fcfaf2;

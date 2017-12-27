@@ -18,7 +18,7 @@
   export default {
     name: "blog",
     created() {
-      this.$store.dispatch('postList')
+      this.$store.dispatch('myPostList')
     },
     computed: {
       ...mapState({

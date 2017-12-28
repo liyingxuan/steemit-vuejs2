@@ -1,20 +1,8 @@
 <template>
-  <div class="container container-body">
+  <div class="container">
     <form @submit.prevent="submitLogin">
       <fieldset>
         <legend class="register-title">Login</legend>
-
-        <div class="alert alert-dismissible alert-warning" v-show="warningDisplay">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <h5 class="alert-heading">Warning!</h5>
-          <p class="mb-0">User name or password is incorrect.</p>
-        </div>
-
-        <div class="alert alert-dismissible alert-info" v-show="confirmDisplay">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <h5 class="alert-heading">Heads up!</h5>
-          Verification email has been sent to your email.
-        </div>
 
         <div class="form-group">
           <div class="input-group">
@@ -50,8 +38,6 @@
     name: "login",
     data() {
       return {
-        warningDisplay: false,
-        confirmDisplay: false,
         username: '',
         password: '',
         isShowPassword: false
@@ -68,8 +54,7 @@
         this.isShowPassword = !this.isShowPassword
       },
       submitLogin() {
-        this.warningDisplay = false
-        this.confirmDisplay = false
+        this.$store.dispatch('hideNotification')
 
         this.$validator.validateAll().then(result => {
           if (result) {
@@ -78,9 +63,9 @@
               password: this.password
             }
             this.$store.dispatch('loginRequest', formData).then(response => {
-              this.$router.push({name: 'Home'})
-            }).catch(error => {
-              this.warningDisplay = true
+              if (response !== false) {
+                this.$router.push({name: 'Home'})
+              }
             })
           }
         })
@@ -88,7 +73,10 @@
       fetchData() {
         this.username = this.$route.params.username
         if (typeof(this.username) !== 'undefined') {
-          this.confirmDisplay = true
+          this.$store.dispatch('showNotification', {
+            level: 'info',
+            msg: 'Verification email has been sent to your email.'
+          })
         }
       }
     }

@@ -30,6 +30,9 @@
   .container-fluid {
     padding: 0;
   }
+  .container-fluid-body {
+    margin-top: -30px;
+  }
   .user-profile-banner {
     background-size: cover;
     background: #171F24 no-repeat 50% 50%;
@@ -39,5 +42,4 @@
     text-align: center;
     padding: 30px;
   }
-
 </style>

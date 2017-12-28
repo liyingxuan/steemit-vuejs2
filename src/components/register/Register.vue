@@ -1,5 +1,5 @@
 <template>
-  <div class="container container-body">
+  <div class="container">
     <form @submit.prevent="submitRegister">
       <fieldset>
         <legend class="register-title">Welcome to NKN</legend>
@@ -65,7 +65,7 @@
             }
             this.axios.post(process.env.API_URL + 'register', formData).then(response => {
               if (response.data.code === 1000) {
-                this.$router.push({name: 'Login', params: {username: this.username}})
+                this.$router.push({name: 'Login', params: {username: this.email}})
               } else {
                 console.log(response.data)
               }

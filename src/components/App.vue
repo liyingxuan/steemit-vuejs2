@@ -1,17 +1,29 @@
 <template>
   <div>
     <top-nav></top-nav>
+    <div class="container-div"></div>
+    <notification></notification>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
   import TopNav from './common/TopNav'
+  import Notification from './common/Notification'
   import jwtToken from './../helpers/jwt'
   import Cookie from 'js-cookie'
+  import {mapActions} from 'vuex'
 
   export default {
     name: 'app',
+    watch: {
+      '$route': 'hideNotification'
+    },
+    methods: {
+      ...mapActions([
+        'hideNotification'
+      ])
+    },
     created() {
       // 登录保持；如果token没过期则直接获取用户信息，如果过期了去刷新token
       if (jwtToken.getToken()) {
@@ -21,7 +33,8 @@
       }
     },
     components: {
-      TopNav
+      TopNav,
+      Notification
     }
   }
 </script>
@@ -34,12 +47,9 @@
     background-color: #fcfcfc;
   }
 
-  /*提供给其他需要的组件使用*/
-  .container-body {
-    margin-top: 95px;
-  }
-  .container-fluid-body {
-    margin-top: 65px;
+  /* 和top nav的间距 */
+  .container-div {
+    height: 95px;
   }
 </style>
 

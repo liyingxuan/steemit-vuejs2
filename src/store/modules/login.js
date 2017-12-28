@@ -7,6 +7,9 @@ export default {
     loginRequest({dispatch}, formData) {
       return axios.post(process.env.API_URL + 'login', formData).then(response => {
         dispatch('loginSuccess', response.data)
+      }).catch(error => {
+        dispatch('showNotification', {level: 'danger', msg: 'User name or password is incorrect.'})
+        return false
       })
     },
     loginSuccess({dispatch}, tokenResponse) {

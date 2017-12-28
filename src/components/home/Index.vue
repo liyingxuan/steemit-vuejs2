@@ -1,5 +1,5 @@
 <template>
-  <div class="container container-body">
+  <div class="container">
     <div class="row">
       <div class="col-lg-3">
         <tag-list></tag-list>

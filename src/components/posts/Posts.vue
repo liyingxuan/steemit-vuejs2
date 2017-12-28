@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid container-body blog-content-all">
+  <div class="container-fluid blog-content-all">
     <div class="row blog-content">
       <article class="post-full" v-if="blog != null">
         <div class="post-full-header">

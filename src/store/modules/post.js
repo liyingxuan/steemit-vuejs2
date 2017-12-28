@@ -23,7 +23,8 @@ export default {
       return axios.post(process.env.API_URL + 'post/create', formData).then(response => {
         // dispatch('postSuccess', response.data)
       }).catch(error => {
-        //
+        dispatch('showNotification', {level: 'danger', msg: 'Something Err!'})
+        return false
       })
     },
     myPostList({commit}) {
@@ -108,6 +109,26 @@ export default {
     },
     hotPostList({commit}) {
       return axios.get(process.env.API_URL + 'hot-blog').then(response => {
+        commit({
+          type: types.BLOG_LIST,
+          blog: response.data.data
+        })
+      }).catch(error => {
+        //
+      })
+    },
+    tagPostListLogged({commit}, tagName) {
+      return axios.get(process.env.API_URL + 'post/tag-blog/' + tagName).then(response => {
+        commit({
+          type: types.BLOG_LIST,
+          blog: response.data.data
+        })
+      }).catch(error => {
+        //
+      })
+    },
+    tagPostList({commit}, tagName) {
+      return axios.get(process.env.API_URL + 'tag-blog/' + tagName).then(response => {
         commit({
           type: types.BLOG_LIST,
           blog: response.data.data

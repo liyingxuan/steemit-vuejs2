@@ -7,3 +7,5 @@ export const BLOG_LIST = 'BLOG_LIST'
 
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
 export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
+
+export const GET_TAGS = 'GET_TAGS'

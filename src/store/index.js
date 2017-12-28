@@ -5,6 +5,7 @@ import Notification from './modules/notification'
 import AuthUser from './modules/auth-user'
 import Login from './modules/login'
 import Post from './modules/post'
+import Tags from './modules/tags'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     Notification,
     AuthUser,
     Login,
-    Post
+    Post,
+    Tags
   }
 })

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
-        <tag-list></tag-list>
+        <tag-list :tags="tagList"></tag-list>
       </div>
       <div class="col-lg-9">
         <articles :articleList="blogList['data']"></articles>
@@ -27,16 +27,21 @@
     computed: {
       ...mapState({
         blogList: state => state.Post.blogList,
-        user: state => state.AuthUser
+        user: state => state.AuthUser,
+        tagList: state => state.Tags.tagList
       })
     },
     methods: {
       getBlog() {
+        this.$store.dispatch('getTags')
+
         if (this.user.authenticated) {
           if (this.$route.params.name === 'new') {
             this.$store.dispatch('newPostListLogged')
           } else if (this.$route.params.name === 'hot') {
             this.$store.dispatch('hotPostListLogged')
+          } else if (typeof(this.$route.params.name) !== 'undefined') {
+            this.$store.dispatch('tagPostListLogged', this.$route.params.name)
           } else {
             this.$store.dispatch('normalPostListLogged')
           }
@@ -45,6 +50,8 @@
             this.$store.dispatch('newPostList')
           } else if (this.$route.params.name === 'hot') {
             this.$store.dispatch('hotPostList')
+          } else if (typeof(this.$route.params.name) !== 'undefined') {
+            this.$store.dispatch('tagPostList', this.$route.params.name)
           } else {
             this.$store.dispatch('normalPostList')
           }

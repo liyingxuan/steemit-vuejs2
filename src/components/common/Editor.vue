@@ -53,9 +53,9 @@
           tags: this.tags
         }
         this.$store.dispatch('postRequest', formData).then(response => {
-          this.$router.push({name: 'Blog'})
-        }).catch(error => {
-
+          if (response !== false) {
+            this.$router.push({name: 'Blog'})
+          }
         })
       },
       disabledBtn() {

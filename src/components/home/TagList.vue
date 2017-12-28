@@ -2,52 +2,16 @@
   <div class="sidebar-module">
     <div class="sidebar-tit"><strong>Tags</strong></div>
     <div class="sidebar-item" v-for="tag in tags">
-      <router-link :to="tag.url">{{tag.name}}</router-link>
+      <router-link :to="{name: 'Articles', params: {name:tag.name}}">{{tag.name}}</router-link>
     </div>
   </div>
 </template>
 
 <script>
 	export default {
-		name: "tag-list",
-    data() {
-		  return {
-		    tags: [
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-          {name: 'test', url: '#'},
-        ]
-      }
-    }
-	}
+    name: "tag-list",
+    props: ['tags']
+  }
 </script>
 
 <style scoped>
@@ -64,7 +28,7 @@
   }
 
   .sidebar-item {
-    margin: 3px 0;
+    margin: 3px 0 10px;
   }
   .sidebar-item > a {
     text-decoration: none;

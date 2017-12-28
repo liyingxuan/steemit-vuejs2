@@ -7,6 +7,7 @@ import Home from '@/components/home/Index'
 import Register from '@/components/register/Register'
 import Login from '@/components/login/Login'
 import Post from '@/components/posts/Post'
+import Posts from '@/components/posts/Posts'
 import Blog from '@/components/user/Blog'
 import Comments from '@/components/user/Comments'
 import Settings from '@/components/user/Settings'
@@ -38,12 +39,12 @@ let routes = [
     component: Login,
     meta: {requiresGuest: true}
   },
-  // {
-  //   path: '/posts/:id',
-  //   name: 'Posts',
-  //   component: Post,
-  //   meta: {}
-  // },
+  {
+    path: '/posts/:id',
+    name: 'Posts',
+    component: Posts,
+    meta: {}
+  },
   {
     path: '/post',
     name: 'Post',

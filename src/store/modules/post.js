@@ -4,7 +4,8 @@ import * as types from "../mutation-type";
 export default {
   state: {
     myBlogList: [],
-    blogList: []
+    blogList: [],
+    blog: []
   },
   mutations: {
     [types.GET_MY_BLOG](state, payload) {
@@ -12,6 +13,9 @@ export default {
     },
     [types.BLOG_LIST](state, payload) {
       state.blogList = payload.blog
+    },
+    [types.GET_BLOG](state, payload) {
+      state.blog = payload.blog
     }
   },
   actions: {
@@ -26,6 +30,26 @@ export default {
       return axios.get(process.env.API_URL + 'post/my-blog').then(response => {
         commit({
           type: types.GET_MY_BLOG,
+          blog: response.data.data
+        })
+      }).catch(error => {
+        //
+      })
+    },
+    oneBlog({commit}, id) {
+      return axios.get(process.env.API_URL + 'blog/' + id).then(response => {
+        commit({
+          type: types.GET_BLOG,
+          blog: response.data.data
+        })
+      }).catch(error => {
+        //
+      })
+    },
+    oneBlogLogged({commit}, id) {
+      return axios.get(process.env.API_URL + 'post/blog/' + id).then(response => {
+        commit({
+          type: types.GET_BLOG,
           blog: response.data.data
         })
       }).catch(error => {

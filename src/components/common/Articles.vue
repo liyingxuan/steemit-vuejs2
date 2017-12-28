@@ -10,9 +10,9 @@
         <span class="article-author"><router-link to="">{{article.author}}</router-link></span>
         <span class="article-honor">
           <i class="fa fa-trophy" aria-hidden="true"></i>
-          {{article.honorVal}}
+          {{(article.honorVal == null ) ? 0 : 'article.honorVal'}}
         </span>
-        <span class="article-time">{{article.time}}</span>
+        <span class="article-time">{{article.created_at}}</span>
       </div>
 
       <div class="article-content">

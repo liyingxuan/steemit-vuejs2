@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as types from "../mutation-type";
+import * as types from "../mutation-type"
 
 export default {
   state: {
@@ -34,108 +34,55 @@ export default {
           blog: response.data.data
         })
       }).catch(error => {
-        //
+        dispatch('showNotification', {level: 'danger', msg: 'Get myPostList error.'})
+        return false
       })
     },
-    oneBlog({commit}, id) {
-      return axios.get(process.env.API_URL + 'blog/' + id).then(response => {
-        commit({
-          type: types.GET_BLOG,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
+
+    // 变更blog数据
+    commitBlog({commit}, responseData) {
+      commit({
+        type: types.GET_BLOG,
+        blog: responseData
       })
     },
-    oneBlogLogged({commit}, id) {
+    oneBlog({dispatch}, id) {
       return axios.get(process.env.API_URL + 'post/blog/' + id).then(response => {
-        commit({
-          type: types.GET_BLOG,
-          blog: response.data.data
-        })
+        dispatch('commitBlog', response.data.data)
       }).catch(error => {
-        //
+        return axios.get(process.env.API_URL + 'blog/' + id).then(response => {
+          dispatch('commitBlog', response.data.data)
+        })
       })
     },
-    normalPostListLogged({commit}) {
-      return axios.get(process.env.API_URL + 'post/blogs').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
+
+    // 变更blog list数据
+    commitBlogList({commit}, responseData) {
+      commit({
+        type: types.BLOG_LIST,
+        blog: responseData
       })
     },
-    normalPostList({commit}) {
-      return axios.get(process.env.API_URL + 'blogs').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
+    axiosGetBlogListData({dispatch}, path) {
+      return axios.get(process.env.API_URL + 'post/' + path).then(response => {
+        dispatch('commitBlogList', response.data.data)
       }).catch(error => {
-        //
+        return axios.get(process.env.API_URL + path).then(response => {
+          dispatch('commitBlogList', response.data.data)
+        })
       })
     },
-    newPostListLogged({commit}) {
-      return axios.get(process.env.API_URL + 'post/new-blog').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
+    normalPostList({dispatch}) {
+      dispatch('axiosGetBlogListData', 'blogs')
     },
-    newPostList({commit}) {
-      return axios.get(process.env.API_URL + 'new-blog').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
+    newPostList({dispatch}) {
+      dispatch('axiosGetBlogListData', 'new-blog')
     },
-    hotPostListLogged({commit}) {
-      return axios.get(process.env.API_URL + 'post/hot-blog').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
+    hotPostList({dispatch}) {
+      dispatch('axiosGetBlogListData', 'hot-blog')
     },
-    hotPostList({commit}) {
-      return axios.get(process.env.API_URL + 'hot-blog').then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
-    },
-    tagPostListLogged({commit}, tagName) {
-      return axios.get(process.env.API_URL + 'post/tag-blog/' + tagName).then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
-    },
-    tagPostList({commit}, tagName) {
-      return axios.get(process.env.API_URL + 'tag-blog/' + tagName).then(response => {
-        commit({
-          type: types.BLOG_LIST,
-          blog: response.data.data
-        })
-      }).catch(error => {
-        //
-      })
+    tagPostList({dispatch}, tagName) {
+      dispatch('axiosGetBlogListData', 'tag-blog/' + tagName)
     }
   }
 }

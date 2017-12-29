@@ -6,6 +6,7 @@ import AuthUser from './modules/auth-user'
 import Login from './modules/login'
 import Post from './modules/post'
 import Tags from './modules/tags'
+import Likes from './modules/likes'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     AuthUser,
     Login,
     Post,
-    Tags
+    Tags,
+    Likes
   }
 })

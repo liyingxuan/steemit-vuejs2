@@ -1,53 +1,57 @@
 <template>
   <div class="container-fluid blog-content-all">
     <div class="row blog-content">
-      <article class="post-full" v-if="blog != null">
-        <div class="post-full-header">
-          <h1 class="">{{blog.title}}</h1>
+      <div class="col-lg-1 "></div>
+      <div class="col-lg-10 col-md-12">
+        <article class="post-full" v-if="blog != null">
+          <div class="post-full-header">
+            <h1 class="">{{blog.title}}</h1>
 
-          <div class="article-header">
-            <span>
-              <img class="article-avatar" :src="demoAvatar">
-            </span>
-            <span class="article-author"><router-link to="">{{blog.author}}</router-link></span>
-            <span class="article-honor">
-              <i class="fa fa-trophy" aria-hidden="true"></i>
-              {{(blog.honorVal == null ) ? 0 : 'article.honorVal'}}
-            </span>
-            <span class="article-time">{{blog.created_at}}</span>
+            <div class="post-article-header">
+              <span>
+                <img class="post-article-avatar" :src="demoAvatar">
+              </span>
+              <span class="post-article-author"><router-link to="">{{blog.author}}</router-link></span>
+              <span class="post-article-honor">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                {{(blog.honorVal == null ) ? 0 : 'article.honorVal'}}
+              </span>
+              <span class="post-article-time">{{blog.created_at}}</span>
+            </div>
           </div>
-        </div>
 
-        <div class="post-full-body">
-          <div v-html="blog.content_html"></div>
-        </div>
+          <div class="post-full-body">
+            <div v-html="blog.content_html"></div>
+          </div>
 
-        <div class="tag_list">
-          <a href="" class="btn">{{blog.tag}}</a>
-        </div>
+          <div class="tag_list">
+            <a href="" class="btn">{{blog.tag}}</a>
+          </div>
 
-        <div class="article-footer">
-          <span class="article-footer-time">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            {{blog.created_at}}
-          </span>
-          <span class="article-star">
-            <router-link to="">
-              <i class="fa" :class="[blog.myStar?'fa-star':'fa-star-o']" aria-hidden="true"></i>
-              {{blog.starCount}}
-            </router-link>
-          </span>
-          <span class="article-comment">
-            <router-link to="">
-              <i class="fa" :class="[blog.myComment?'fa-comment':'fa-comment-o']" aria-hidden="true"></i>
-              {{blog.commentCount}}
-            </router-link>
-          </span>
-          <span class="article-reply">
-            <a href="" class="btn">Reply</a>
-          </span>
-        </div>
-      </article>
+          <div class="post-article-footer">
+            <span class="post-article-footer-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              {{blog.created_at}}
+            </span>
+            <span class="post-article-star">
+              <a @click="userLike">
+                <i class="fa" :class="[blog.myStar?'fa-star':'fa-star-o']" aria-hidden="true"></i>
+                {{blog.starCount}}
+              </a>
+            </span>
+            <span class="post-article-comment">
+              <router-link to="">
+                <i class="fa" :class="[blog.myComment?'fa-comment':'fa-comment-o']" aria-hidden="true"></i>
+                {{blog.commentCount}}
+              </router-link>
+            </span>
+            <span class="post-article-reply">
+              <a href="" class="btn">Reply</a>
+            </span>
+          </div>
+        </article>
+      </div>
+      <div class="col-lg-1"></div>
     </div>
   </div>
 </template>
@@ -57,7 +61,7 @@
 
 	export default {
     name: "post",
-    created() {
+    mounted() {
       this.getBlog()
     },
     watch: {
@@ -65,21 +69,35 @@
     },
     computed: {
       ...mapState({
-        blog: state => state.Post.blog[0],
-        user: state => state.AuthUser
+        user: state => state.AuthUser,
+        blog: state => state.Post.blog[0]
       })
     },
     data() {
       return {
-        demoAvatar: require('../../assets/img/avatar.png')
+        demoAvatar: require('../../assets/img/avatar.png'),
+        blogObj: {myStar: false, starCount: 0}
       }
     },
     methods: {
       getBlog() {
+        this.$store.dispatch('oneBlog', this.$route.params.id)
+      },
+      userLike() {
         if (this.user.authenticated) {
-          this.$store.dispatch('oneBlogLogged', this.$route.params.id)
+          if (typeof(this.blog.myStar) === 'undefined' || this.blog.myStar !== true) {
+            this.blogObj = this.blog
+            this.blogObj.myStar = true
+            this.blogObj.starCount++
+            this.$set(this.blog, 0, this.blogObj);
+
+            let formData = {
+              articleId: this.$route.params.id
+            }
+            this.$store.dispatch('userLike', formData)
+          }
         } else {
-          this.$store.dispatch('oneBlog', this.$route.params.id)
+          this.$router.push({name: 'Login'})
         }
       }
     }
@@ -113,30 +131,30 @@
     font-size: 200%;
     line-height: 1.1;
   }
-  .article-header {
+  .post-article-header {
     padding: 10px 16px 10px;
   }
-  .article-avatar {
+  .post-article-avatar {
     height: 50px;
     width: 50px;
     border-radius: 50%;
   }
-  .article-author {
+  .post-article-author {
     margin-left: 10px;
     line-height: 50px;
     font-size: 16px;
     font-size: 1rem;
   }
-  .article-author > a{
+  .post-article-author > a{
     text-decoration: none;
     color: #333;
     font-weight: bold;
   }
-  .article-honor {
+  .post-article-honor {
     margin-left: 10px;
     font-weight: 100;
   }
-  .article-time {
+  .post-article-time {
     margin-left: 10px;
     font-weight: normal;
     font-size: 14px;
@@ -168,30 +186,33 @@
     border: 1px solid #000;
   }
 
-  .article-footer {
+  .post-article-footer {
     padding: 16px 16px 16px 1px;
     font-size: 15px;
     font-size: 0.9375rem;
     color: #333;
     font-family: "Source Sans Pro", sans-serif;
   }
-  .article-footer a {
+  .post-article-footer a {
     text-decoration: none;
     color: #333;
   }
-  .article-star {
+  .post-article-star {
     border-right: 1px solid #eee;
     border-left: 1px solid #eee;
     padding: 0 16px;
   }
-  .article-comment {
+  .post-article-star > a {
+    cursor: pointer;
+  }
+  .post-article-comment {
     margin-left: 16px;
   }
-  .article-footer-time {
+  .post-article-footer-time {
     margin-right: 16px;
   }
 
-  .article-reply > a {
+  .post-article-reply > a {
     float: right;
     background: #fcfcfc;
     color: #06D6A9;

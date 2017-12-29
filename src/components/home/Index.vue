@@ -35,26 +35,14 @@
       getBlog() {
         this.$store.dispatch('getTags')
 
-        if (this.user.authenticated) {
-          if (this.$route.params.name === 'new') {
-            this.$store.dispatch('newPostListLogged')
-          } else if (this.$route.params.name === 'hot') {
-            this.$store.dispatch('hotPostListLogged')
-          } else if (typeof(this.$route.params.name) !== 'undefined') {
-            this.$store.dispatch('tagPostListLogged', this.$route.params.name)
-          } else {
-            this.$store.dispatch('normalPostListLogged')
-          }
+        if (this.$route.params.name === 'new') {
+          this.$store.dispatch('newPostList')
+        } else if (this.$route.params.name === 'hot') {
+          this.$store.dispatch('hotPostList')
+        } else if (typeof(this.$route.params.name) !== 'undefined') {
+          this.$store.dispatch('tagPostList', this.$route.params.name)
         } else {
-          if (this.$route.params.name === 'new') {
-            this.$store.dispatch('newPostList')
-          } else if (this.$route.params.name === 'hot') {
-            this.$store.dispatch('hotPostList')
-          } else if (typeof(this.$route.params.name) !== 'undefined') {
-            this.$store.dispatch('tagPostList', this.$route.params.name)
-          } else {
-            this.$store.dispatch('normalPostList')
-          }
+          this.$store.dispatch('normalPostList')
         }
       }
     },

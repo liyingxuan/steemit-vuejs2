@@ -2,7 +2,7 @@
   <article id="articles">
     <div class="articles-header"><strong>Articles</strong></div>
 
-    <div class="article-container" v-for="article in articleList">
+    <div class="article-container" v-for="(article,index) in articleList">
       <div class="article-header">
         <span>
           <img class="article-avatar" :src="demoAvatar">
@@ -33,13 +33,13 @@
 
       <div class="article-footer">
         <span class="article-star">
-          <router-link to="">
+          <a @click="userLike(index)">
             <i class="fa" :class="[article.myStar?'fa-star':'fa-star-o']" aria-hidden="true"></i>
             {{article.starCount}}
-          </router-link>
+          </a>
         </span>
         <span class="article-comment">
-          <router-link to="">
+          <router-link :to="{name: 'Posts', params: {id:article.id}}">
             <i class="fa" :class="[article.myComment?'fa-comment':'fa-comment-o']" aria-hidden="true"></i>
             {{article.commentCount}}
           </router-link>
@@ -55,7 +55,23 @@
     props: ['articleList'],
     data() {
       return {
-        demoAvatar: require('../../assets/img/avatar.png')
+        demoAvatar: require('../../assets/img/avatar.png'),
+        articleObj: {myStar: false, starCount: 0}
+      }
+    },
+    methods: {
+      userLike(index) {
+        if (this.articleList[index].myStar !== true) {
+          this.articleObj = this.articleList[index]
+          this.articleObj.myStar = true
+          this.articleObj.starCount++
+          this.$set(this.articleList, index, this.articleObj);
+
+          let formData = {
+            articleId: this.articleList[index].id
+          }
+          this.$store.dispatch('userLike', formData)
+        }
       }
     }
   }
@@ -167,6 +183,9 @@
   .article-star {
     border-right: 1px solid #eee;
     padding-right: 16px;
+  }
+  .article-star > a {
+    cursor: pointer;
   }
   .article-comment {
     margin-left: 16px;

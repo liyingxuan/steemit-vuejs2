@@ -7,6 +7,7 @@ import Login from './modules/login'
 import Post from './modules/post'
 import Tags from './modules/tags'
 import Likes from './modules/likes'
+import Comment from './modules/comment'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     Login,
     Post,
     Tags,
-    Likes
+    Likes,
+    Comment
   }
 })

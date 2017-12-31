@@ -46,18 +46,24 @@
               </router-link>
             </span>
             <span class="post-article-reply">
-              <a href="" class="btn">Reply</a>
+              <a @click="showCommentArea" class="btn">Reply</a>
             </span>
           </div>
         </article>
       </div>
       <div class="col-lg-1"></div>
     </div>
+
+    <comment v-show="replyView"></comment>
+
+    <comment-list :commentList="commentList"></comment-list>
   </div>
 </template>
 
 <script>
   import {mapState} from 'vuex'
+  import Comment from './../common/Comment'
+  import CommentList from './../posts/CommentList'
 
 	export default {
     name: "post",
@@ -70,7 +76,9 @@
     computed: {
       ...mapState({
         user: state => state.AuthUser,
-        blog: state => state.Post.blog[0]
+        blog: state => state.Post.blog[0],
+        commentList: state => state.Comment.commentList,
+        replyView: state => state.Comment.viewComment
       })
     },
     data() {
@@ -82,6 +90,7 @@
     methods: {
       getBlog() {
         this.$store.dispatch('oneBlog', this.$route.params.id)
+        this.$store.dispatch('getComment', this.$route.params.id)
       },
       userLike() {
         if (this.user.authenticated) {
@@ -99,7 +108,14 @@
         } else {
           this.$router.push({name: 'Login'})
         }
+      },
+      showCommentArea() {
+        this.$store.dispatch('showCommentArea')
       }
+    },
+    components: {
+      Comment,
+      CommentList
     }
   }
 </script>
@@ -132,7 +148,7 @@
     line-height: 1.1;
   }
   .post-article-header {
-    padding: 10px 16px 10px;
+    padding: 10px 16px 10px 0;
   }
   .post-article-avatar {
     height: 50px;
@@ -187,7 +203,7 @@
   }
 
   .post-article-footer {
-    padding: 16px 16px 16px 1px;
+    padding: 16px 1px 16px 1px;
     font-size: 15px;
     font-size: 0.9375rem;
     color: #333;
@@ -215,12 +231,17 @@
   .post-article-reply > a {
     float: right;
     background: #fcfcfc;
-    color: #06D6A9;
-    border: 1px solid #06D6A9;
+    color: #788187 !important;
+    border: 1px solid #788187;
     display: inline-block;
     /*margin: 0 auto;*/
     padding: 0.1rem 1rem;
     border-radius: 0.2rem;
     transition: 0.2s all ease-in-out;
+    cursor: pointer;
+  }
+  .post-article-reply > a:hover {
+    color: #06D6A9 !important;
+    border: 1px solid #06D6A9;
   }
 </style>

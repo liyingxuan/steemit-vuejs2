@@ -24,8 +24,10 @@
             <div v-html="blog.content_html"></div>
           </div>
 
-          <div class="tag_list">
-            <a href="" class="btn">{{blog.tag}}</a>
+          <div>
+            <span class="tag_list" v-for="tagItem in JSON.parse(blog.tag)">
+              <router-link class="btn" :to="{name: 'Articles', params: {name:tagItem}}">{{tagItem}}</router-link>
+            </span>
           </div>
 
           <div class="post-article-footer">
